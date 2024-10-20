@@ -38,6 +38,13 @@
     font-size: 30px;
 }
 
+#header #logo a {
+    transition: none;
+}
+#header #logo a:hover, #header #logo a:hover h1 {
+    color: white;
+}
+
 #header nav ul {
     display: flex;
     justify-content: center;
