@@ -10,7 +10,7 @@ app.get('/insta', async (req, res) => {
   res.end(await getInstagramFeed());
 });
 
-app.listen(80, () => {
-  console.log('Listening on port 80');
+app.listen(port, () => {
+  console.log('Listening on port ' + port);
 });
 
