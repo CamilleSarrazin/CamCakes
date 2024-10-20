@@ -90,3 +90,21 @@
         padding-bottom: 6px;
     }
 }
+
+body:is(.is-touch) .tiles article a {
+    justify-content: flex-end;
+    padding: 0;
+}
+
+body:is(.is-touch) .tiles article .content {
+    padding: 1em;
+    padding-top: 60px;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.95),
+            transparent);
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.tiles article .content {
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 1);
+}
