@@ -3,6 +3,10 @@
     color: white;
 }
 
+#header a {
+    border-bottom: none;
+}
+
 #header .inner {
     display: flex;
     align-items: center;
@@ -28,7 +32,8 @@
 
 #header #logo img {
     height: 30px;
-    margin-right: 5px;
+    margin-right: 8px;
+    margin-bottom: 8px;
 }
 
 #header h1 {
@@ -39,6 +44,8 @@
 }
 
 #header #logo a {
+    display: flex;
+    align-items:center;
     transition: none;
 }
 #header #logo a:hover, #header #logo a:hover h1 {
