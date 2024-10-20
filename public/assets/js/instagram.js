@@ -4,7 +4,7 @@ function getInstagramFeed() {
         .then(data => {
             const feedContainer = document.getElementById('photo-container');
 
-            data.data.forEach(post => {
+            data.forEach(post => {
                 const article = document.createElement('article');
                 const span = document.createElement('span');
                 span.classList.add("image");
