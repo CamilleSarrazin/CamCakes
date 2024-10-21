@@ -193,3 +193,15 @@ body:is(.is-touch) .tiles article .content {
 .tiles article .content {
     text-shadow: 0 2px 20px rgba(0, 0, 0, 1);
 }
+
+/* Footer */
+
+#footer {
+    padding-top: 2em;
+    padding-bottom: 0.5em;
+}
+
+#footer > .inner .copyright {
+    margin: 1em 0;
+    margin-top: 2.5em;
+}
