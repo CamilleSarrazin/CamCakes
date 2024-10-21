@@ -1,3 +1,5 @@
+/* Header */
+
 #header {
     background-color: #2E2E2E;
     color: white;
@@ -81,6 +83,8 @@
     color: #0db0e2 !important;
 }
 
+/* Main */
+
 #main {
     margin-top: 40px;
 }
@@ -88,6 +92,73 @@
 #main h1 {
     margin-bottom: 20px;
 }
+
+/* A propos */
+
+#propos h1 {
+    margin-bottom: 0;
+}
+
+#propos h2 {
+    padding-left: 3px;
+    margin-bottom: 40px;
+}
+
+#propos h3 {
+    margin-bottom: 10px;
+}
+
+#propos p {
+    margin-bottom: 16px;
+}
+
+#propos img {
+    max-width: 100%;
+    border-radius: 20%;
+}
+
+.propos-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-row-gap: 40px;
+}
+
+.propos-container .photo, .propos-container .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.propos-container .photo {
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+
+.propos-container .description {
+    grid-column-start: 7;
+    grid-column-end: 13;
+}
+
+@media screen and (max-width: 1050px) {
+    .propos-container {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    .propos-container .photo {
+        grid-area: 1 / 4 / 2 / 10;
+    }
+
+    .propos-container .description {
+        grid-area: 2 / 1 / 3 / 13;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .propos-container .photo {
+        grid-area: 1 / 2 / 2 / 12;
+    }
+}
+
+/* Mobile */
 
 @media screen and (max-width: 525px) {
     #header .inner {
