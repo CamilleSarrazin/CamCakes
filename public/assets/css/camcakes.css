@@ -194,6 +194,7 @@ body:is(.is-touch) .tiles article .content {
             rgba(0, 0, 0, 0.95),
             transparent);
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
 }
 
 .tiles article .content {
@@ -214,7 +215,7 @@ body:is(.is-touch) .tiles article .content {
 }
 
 /* Animation chargement */
-body:not(.is-touch) .tiles article:hover > .image:before {
+body:not(.is-touch) .tiles article.loading:hover > .image:before {
     background-color: transparent;
     opacity: 1;
 }
