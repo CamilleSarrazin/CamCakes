@@ -3,6 +3,7 @@ function getInstagramFeed() {
         .then(response => response.json())
         .then(data => {
             const feedContainer = document.getElementById('photo-container');
+            let photos = [];
 
             data.forEach(post => {
                 const article = document.createElement('article');
@@ -14,7 +15,6 @@ function getInstagramFeed() {
                 postImage.alt = post.caption;
                 span.appendChild(postImage);
                 article.appendChild(span);
-
 
                 const postLink = document.createElement('a');
                 postLink.href = post.permalink;
@@ -29,8 +29,10 @@ function getInstagramFeed() {
                 content.appendChild(description);
                 postLink.appendChild(content);
                 article.appendChild(postLink);
-                feedContainer.appendChild(article);
+                photos.push(article);
             });
+            
+            feedContainer.replaceChildren(...photos);
         })
         .catch(error => console.error(error));
 }

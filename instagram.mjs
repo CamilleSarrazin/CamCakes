@@ -6,7 +6,7 @@ var lastFetched = null;
 
 // Function to fetch and display Instagram feed
 async function getInstagramFeed() {
-    if (isCached(15)) {
+    if (isCached(60)) {
         console.log("using cache")
         return cachedImages;
     }
