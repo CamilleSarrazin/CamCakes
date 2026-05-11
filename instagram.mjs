@@ -2,8 +2,8 @@ import axios from 'axios';
 import { writeFile } from 'fs/promises';
 import { getConfig, configPath } from './config.mjs';
 
-var cachedImages = null;
-var lastFetched = null;
+let cachedImages = null;
+let lastFetched = null;
 
 // Refresh the token if it's older than 30 days (tokens expire after 60 days).
 // Instagram only allows refreshing tokens that are at least 24 hours old.
@@ -51,17 +51,28 @@ async function getInstagramFeed() {
         return cachedImages;
     }
 
-    const { instagramAccessToken } = await getConfig();
-    var images = [];
-    var nextUrl = `https://graph.instagram.com/v21.0/17841448618671800/media?fields=id,caption,media_type,media_url,permalink,timestamp&access_token=${instagramAccessToken}`;
-    console.log('wow');
-    while (nextUrl) {
-        console.log(nextUrl);
-        var response = await axios.get(nextUrl);
-        images = images.concat(response.data.data);
-        nextUrl = response.data.paging?.next;
+    const { instagramAccessToken, instagramUserId, instagramMediaFields } = await getConfig();
+    let images = [];
+    let nextUrl = `https://graph.instagram.com/v21.0/${instagramUserId}/media?fields=${instagramMediaFields}&access_token=${instagramAccessToken}`;
+    console.log('fetching instagram feed...');
+
+    try {
+        while (nextUrl) {
+            const response = await axios.get(nextUrl);
+            images = images.concat(response.data.data);
+            nextUrl = response.data.paging?.next;
+        }
+    } catch (err) {
+        console.error('[Instagram] Failed to fetch feed:', err.response?.data ?? err.message);
+        // Return stale cache if available, otherwise rethrow so the caller gets a proper error
+        if (cachedImages !== null) {
+            console.warn('[Instagram] Returning stale cache due to fetch error.');
+            return cachedImages;
+        }
+        throw err;
     }
-    console.log('fini');
+
+    console.log('instagram feed fetched successfully.');
     cachedImages = JSON.stringify(images);
     lastFetched = new Date();
     return cachedImages;
