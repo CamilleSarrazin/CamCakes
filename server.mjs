@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import { getInstagramFeed } from './instagram.mjs';
+import { getInstagramFeed, refreshTokenIfNeeded } from './instagram.mjs';
 
 const app = express();
 const port = 3000;
@@ -15,12 +15,18 @@ app.get('/insta', async (req, res) => {
 
 app.get('/apropos', async (req, res) => {
   const options = {
-      root: publicPath
+    root: publicPath
   };
   res.sendFile('apropos.html', options);
 });
 
 app.listen(port, () => {
   console.log('Listening on port ' + port);
+
+  // Check on startup
+  refreshTokenIfNeeded();
+
+  // Check every 24 hours
+  setInterval(refreshTokenIfNeeded, 1000 * 60 * 60 * 24);
 });
 
