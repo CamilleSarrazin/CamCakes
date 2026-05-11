@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { writeFileSync } from 'fs';
+import { writeFile } from 'fs/promises';
 import { getConfig, configPath } from './config.mjs';
 
 var cachedImages = null;
@@ -8,7 +8,7 @@ var lastFetched = null;
 // Refresh the token if it's older than 30 days (tokens expire after 60 days).
 // Instagram only allows refreshing tokens that are at least 24 hours old.
 async function refreshTokenIfNeeded() {
-    const config = getConfig();
+    const config = await getConfig();
     const now = new Date();
 
     if (config.lastRefresh) {
@@ -32,11 +32,12 @@ async function refreshTokenIfNeeded() {
 
         const newToken = response.data.access_token;
         const updatedConfig = {
+            ...config,
             instagramAccessToken: newToken,
             lastRefresh: now.toISOString(),
         };
 
-        writeFileSync(configPath, JSON.stringify(updatedConfig, null, 2), 'utf-8');
+        await writeFile(configPath, JSON.stringify(updatedConfig, null, 2), 'utf-8');
         console.log(`[Instagram] Token refreshed successfully. New expiry in ~${response.data.expires_in} seconds.`);
     } catch (err) {
         console.error('[Instagram] Failed to refresh token:', err.response?.data ?? err.message);
@@ -50,7 +51,7 @@ async function getInstagramFeed() {
         return cachedImages;
     }
 
-    const { instagramAccessToken } = getConfig();
+    const { instagramAccessToken } = await getConfig();
     var images = [];
     var nextUrl = `https://graph.instagram.com/v21.0/17841448618671800/media?fields=id,caption,media_type,media_url,permalink,timestamp&access_token=${instagramAccessToken}`;
     console.log('wow');
