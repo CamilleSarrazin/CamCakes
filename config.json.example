@@ -1,0 +1,6 @@
+{
+  "instagramAccessToken": "YOUR_INSTAGRAM_ACCESS_TOKEN",
+  "lastRefresh": "2026-04-30T00:00:00.000Z",
+  "instagramUserId": "YOUR_INSTAGRAM_USER_ID",
+  "instagramMediaFields": "id,caption,media_type,media_url,permalink,timestamp"
+}

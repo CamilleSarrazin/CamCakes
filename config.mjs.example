@@ -1,3 +1,0 @@
-const instagramAccessToken = 'KEY_HERE';
-
-export { instagramAccessToken };
